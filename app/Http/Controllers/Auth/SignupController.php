@@ -61,7 +61,7 @@ class SignupController extends AbstractLoginController
         return new JsonResponse([
             'data' => [
                 'complete' => true,
-                'intended' => '/servers/' . $server->uuidShort,
+                'intended' => '/server/' . $server->uuidShort,
                 'user' => $user->toVueObject(),
             ],
         ]);
@@ -78,7 +78,7 @@ class SignupController extends AbstractLoginController
         $node = null;
         $egg = Egg::findOrFail(3);
 
-        foreach (Node::all() as $n) {
+        foreach (Node::inRandomOrder()->get() as $n) {
             if ($n->isViable(3072, 20480)) {
                 $node = $n->id;
                 break;
