@@ -50,7 +50,7 @@ export default forwardRef<HTMLFormElement, Props>(({ title, ...props }, ref) => 
                     </Link>
                 </div>
                 <div css={tw`flex-none select-none mb-6 md:mb-0 self-center`}>
-                    <img src={'/assets/svgs/logo.png'} css={tw`block w-48 md:w-64 mx-auto`} />
+                    <img src={'/assets/svgs/pterodactyl.svg'} css={tw`block w-48 md:w-64 mx-auto`} />
                 </div>
                 <div css={tw`flex-1`}>{props.children}</div>
             </div>

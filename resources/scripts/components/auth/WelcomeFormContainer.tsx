@@ -34,7 +34,7 @@ export default ({ title, children }: Props) => (
         <FlashMessageRender css={tw`mb-2 px-1`} />
         <div css={tw`md:flex w-full bg-white shadow-lg rounded-lg p-6 mx-1`}>
             <div css={tw`lg:grid lg:col-span-2 w-full`}>
-                <img src={'/assets/svgs/logo.png'} css={tw`block w-48 md:w-64 mx-auto`} />
+                <img src={'/assets/svgs/pterodactyl.svg'} css={tw`block w-48 md:w-64 mx-auto`} />
                 <div css={tw`flex-1`}>{children}</div>
             </div>
         </div>
