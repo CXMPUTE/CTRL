@@ -67,7 +67,10 @@ export default () => {
             onSubmit={onSubmit}
             initialValues={{ email: '', username: '', password: '' }}
             validationSchema={object().shape({
-                email: string().email().required('A valid email must be provided.'),
+                email: string()
+                    .email()
+                    .matches(/^[a-zA-Z0-9@]+$/)
+                    .required('A valid email must be provided.'),
                 username: string().min(3).required('Please provide a username.'),
                 password: string().min(8).required('Please provide a password with at least 8 characters.'),
             })}
