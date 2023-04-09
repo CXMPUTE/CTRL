@@ -249,7 +249,7 @@ class Handler extends ExceptionHandler
             return new JsonResponse($this->convertExceptionToArray($exception), JsonResponse::HTTP_UNAUTHORIZED);
         }
 
-        return redirect()->guest('/auth/login');
+        return redirect()->guest('/auth');
     }
 
     /**

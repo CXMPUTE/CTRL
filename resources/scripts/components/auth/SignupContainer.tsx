@@ -1,34 +1,33 @@
-import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import requestPasswordResetEmail from '@/api/auth/requestPasswordResetEmail';
-import { httpErrorToHuman } from '@/api/http';
+import React, { useEffect, useRef, useState } from 'react';
 import AuthFormContainer from '@/components/auth/AuthFormContainer';
 import { useStoreState } from 'easy-peasy';
-import Field from '@/components/elements/Field';
 import { Formik, FormikHelpers } from 'formik';
 import { object, string } from 'yup';
+import Field from '@/components/elements/Field';
 import tw from 'twin.macro';
 import Button from '@/components/elements/Button';
 import Reaptcha from 'reaptcha';
 import useFlash from '@/plugins/useFlash';
+import register from '@/api/auth/register';
 
 interface Values {
     email: string;
+    username: string;
+    password: string;
 }
 
 export default () => {
     const ref = useRef<Reaptcha>(null);
     const [token, setToken] = useState('');
 
-    const { clearFlashes, addFlash } = useFlash();
+    const { clearFlashes, clearAndAddHttpError } = useFlash();
     const { enabled: recaptchaEnabled, siteKey } = useStoreState((state) => state.settings.data!.recaptcha);
 
     useEffect(() => {
         clearFlashes();
     }, []);
 
-    const handleSubmission = ({ email }: Values, { setSubmitting, resetForm }: FormikHelpers<Values>) => {
+    const onSubmit = (values: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes();
 
         // If there is no token in the state yet, request the token and then abort this submit request
@@ -38,53 +37,53 @@ export default () => {
                 console.error(error);
 
                 setSubmitting(false);
-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
+                clearAndAddHttpError({ error });
             });
 
             return;
         }
 
-        requestPasswordResetEmail(email, token)
+        register({ ...values, recaptchaData: token })
             .then((response) => {
-                resetForm();
-                addFlash({ type: 'success', title: 'Success', message: response });
+                if (response.complete) {
+                    // @ts-expect-error this is valid
+                    window.location = response.intended;
+                    return;
+                }
             })
             .catch((error) => {
                 console.error(error);
-                addFlash({ type: 'error', title: 'Error', message: httpErrorToHuman(error) });
-            })
-            .then(() => {
+
                 setToken('');
                 if (ref.current) ref.current.reset();
 
                 setSubmitting(false);
+                clearAndAddHttpError({ error });
             });
     };
 
     return (
         <Formik
-            onSubmit={handleSubmission}
-            initialValues={{ email: '' }}
+            onSubmit={onSubmit}
+            initialValues={{ email: '', username: '', password: '' }}
             validationSchema={object().shape({
-                email: string()
-                    .email('A valid email address must be provided to continue.')
-                    .required('A valid email address must be provided to continue.'),
+                email: string().email().required('A valid email must be provided.'),
+                username: string().min(3).required('Please provide a username.'),
+                password: string().min(8).required('Please provide a password with at least 8 characters.'),
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <AuthFormContainer title={'Request Password Reset'} css={tw`w-full flex`}>
-                    <Field
-                        light
-                        label={'Email'}
-                        description={
-                            'Enter your account email address to receive instructions on resetting your password.'
-                        }
-                        name={'email'}
-                        type={'email'}
-                    />
+                <AuthFormContainer title={'Join CXMPUTE Today'} css={tw`w-full flex`}>
+                    <Field light type={'text'} label={'Email Address'} name={'email'} disabled={isSubmitting} />
                     <div css={tw`mt-6`}>
-                        <Button type={'submit'} size={'xlarge'} disabled={isSubmitting} isLoading={isSubmitting}>
-                            Send Email
+                        <Field light type={'text'} label={'Username'} name={'username'} disabled={isSubmitting} />
+                    </div>
+                    <div css={tw`mt-6`}>
+                        <Field light type={'password'} label={'Password'} name={'password'} disabled={isSubmitting} />
+                    </div>
+                    <div css={tw`mt-6`}>
+                        <Button type={'submit'} size={'xlarge'} isLoading={isSubmitting} disabled={isSubmitting}>
+                            Sign Up
                         </Button>
                     </div>
                     {recaptchaEnabled && (
@@ -102,14 +101,6 @@ export default () => {
                             }}
                         />
                     )}
-                    <div css={tw`mt-6 text-center`}>
-                        <Link
-                            to={'/auth/login'}
-                            css={tw`text-xs text-neutral-500 tracking-wide uppercase no-underline hover:text-neutral-700`}
-                        >
-                            Return to Login
-                        </Link>
-                    </div>
                 </AuthFormContainer>
             )}
         </Formik>

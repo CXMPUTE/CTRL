@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import loginCheckpoint from '@/api/auth/loginCheckpoint';
-import LoginFormContainer from '@/components/auth/LoginFormContainer';
+import AuthFormContainer from '@/components/auth/AuthFormContainer';
 import { ActionCreator } from 'easy-peasy';
 import { StaticContext } from 'react-router';
 import { useFormikContext, withFormik } from 'formik';
@@ -27,7 +27,7 @@ const LoginCheckpointContainer = () => {
     const [isMissingDevice, setIsMissingDevice] = useState(false);
 
     return (
-        <LoginFormContainer title={'Device Checkpoint'} css={tw`w-full flex`}>
+        <AuthFormContainer title={'Device Checkpoint'} css={tw`w-full flex`}>
             <div css={tw`mt-6`}>
                 <Field
                     light
@@ -68,7 +68,7 @@ const LoginCheckpointContainer = () => {
                     Return to Login
                 </Link>
             </div>
-        </LoginFormContainer>
+        </AuthFormContainer>
     );
 };
 

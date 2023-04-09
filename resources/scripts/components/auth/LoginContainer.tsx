@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import login from '@/api/auth/login';
-import LoginFormContainer from '@/components/auth/LoginFormContainer';
+import AuthFormContainer from '@/components/auth/AuthFormContainer';
 import { useStoreState } from 'easy-peasy';
 import { Formik, FormikHelpers } from 'formik';
 import { object, string } from 'yup';
@@ -74,7 +74,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
             })}
         >
             {({ isSubmitting, setSubmitting, submitForm }) => (
-                <LoginFormContainer title={'Login to Continue'} css={tw`w-full flex`}>
+                <AuthFormContainer title={'Login to CTRL'} css={tw`w-full flex`}>
                     <Field light type={'text'} label={'Username or Email'} name={'username'} disabled={isSubmitting} />
                     <div css={tw`mt-6`}>
                         <Field light type={'password'} label={'Password'} name={'password'} disabled={isSubmitting} />
@@ -107,7 +107,7 @@ const LoginContainer = ({ history }: RouteComponentProps) => {
                             Forgot password?
                         </Link>
                     </div>
-                </LoginFormContainer>
+                </AuthFormContainer>
             )}
         </Formik>
     );

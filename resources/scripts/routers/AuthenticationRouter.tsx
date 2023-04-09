@@ -6,6 +6,8 @@ import ResetPasswordContainer from '@/components/auth/ResetPasswordContainer';
 import LoginCheckpointContainer from '@/components/auth/LoginCheckpointContainer';
 import { NotFound } from '@/components/elements/ScreenBlock';
 import { useHistory, useLocation } from 'react-router';
+import WelcomeContainer from '@/components/auth/WelcomeContainer';
+import SignupContainer from '@/components/auth/SignupContainer';
 
 export default () => {
     const history = useHistory();
@@ -15,13 +17,15 @@ export default () => {
     return (
         <div className={'pt-8 xl:pt-32'}>
             <Switch location={location}>
+                <Route path={path} component={WelcomeContainer} exact />
+                <Route path={`${path}/signup`} component={SignupContainer} exact />
                 <Route path={`${path}/login`} component={LoginContainer} exact />
                 <Route path={`${path}/login/checkpoint`} component={LoginCheckpointContainer} />
                 <Route path={`${path}/password`} component={ForgotPasswordContainer} exact />
                 <Route path={`${path}/password/reset/:token`} component={ResetPasswordContainer} />
                 <Route path={`${path}/checkpoint`} />
                 <Route path={'*'}>
-                    <NotFound onBack={() => history.push('/auth/login')} />
+                    <NotFound onBack={() => history.push('/auth')} />
                 </Route>
             </Switch>
         </div>

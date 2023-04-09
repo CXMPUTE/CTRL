@@ -3,7 +3,7 @@ import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
 import performPasswordReset from '@/api/auth/performPasswordReset';
 import { httpErrorToHuman } from '@/api/http';
-import LoginFormContainer from '@/components/auth/LoginFormContainer';
+import AuthFormContainer from '@/components/auth/AuthFormContainer';
 import { Actions, useStoreActions } from 'easy-peasy';
 import { ApplicationStore } from '@/state';
 import { Formik, FormikHelpers } from 'formik';
@@ -61,7 +61,7 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
             })}
         >
             {({ isSubmitting }) => (
-                <LoginFormContainer title={'Reset Password'} css={tw`w-full flex`}>
+                <AuthFormContainer title={'Reset Password'} css={tw`w-full flex`}>
                     <div>
                         <label>Email</label>
                         <Input value={email} isLight disabled />
@@ -91,7 +91,7 @@ export default ({ match, location }: RouteComponentProps<{ token: string }>) => 
                             Return to Login
                         </Link>
                     </div>
-                </LoginFormContainer>
+                </AuthFormContainer>
             )}
         </Formik>
     );
