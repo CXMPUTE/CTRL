@@ -225,8 +225,6 @@ class Node extends Model
      */
     public function isViable(int $memory, int $disk): bool
     {
-        if (!$this->public) return false;
-
         $memoryLimit = $this->memory * (1 + ($this->memory_overallocate / 100));
         $diskLimit = $this->disk * (1 + ($this->disk_overallocate / 100));
 

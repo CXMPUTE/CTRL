@@ -79,7 +79,7 @@ class SignupController extends AbstractLoginController
         $egg = Egg::findOrFail(3);
 
         foreach (Node::inRandomOrder()->get() as $n) {
-            if ($n->isViable(3072, 20480)) {
+            if ($n->isViable(3072, 20480) && $n->public) {
                 $node = $n->id;
                 break;
             }
