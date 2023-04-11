@@ -27,7 +27,7 @@ const RightNavigation = styled.div`
         &:active,
         &:hover,
         &.active {
-            box-shadow: inset 0 -2px ${theme`colors.cyan.600`.toString()};
+            box-shadow: inset 0 2px ${theme`colors.cyan.600`.toString()};
         }
     }
 `;
@@ -46,9 +46,9 @@ export default () => {
     };
 
     return (
-        <div className={'w-full bg-neutral-900 shadow-md overflow-x-auto'}>
+        <div className={'w-full bg-neutral-900 overflow-x-auto'}>
             <SpinnerOverlay visible={isLoggingOut} />
-            <div className={'mx-auto w-full flex items-center h-[3.5rem] max-w-[1200px]'}>
+            <div className={'mx-auto w-full flex items-center h-[3.5rem] max-w-[1600px]'}>
                 <div id={'logo'} className={'flex-1'}>
                     <Link
                         to={'/'}

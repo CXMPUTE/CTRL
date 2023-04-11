@@ -60,8 +60,7 @@ const App = () => {
         <>
             <GlobalStylesheet />
             <StoreProvider store={store}>
-                <ProgressBar />
-                <div css={tw`mx-auto w-auto`}>
+                <div css={tw`mx-auto w-auto h-screen`}>
                     <Router history={history}>
                         <Switch>
                             <Route path={'/auth'}>
@@ -87,6 +86,7 @@ const App = () => {
                         </Switch>
                     </Router>
                 </div>
+                <ProgressBar />
             </StoreProvider>
         </>
     );

@@ -8,7 +8,7 @@ import { ServerContext } from '@/state/server';
 import { httpErrorToHuman } from '@/api/http';
 import FlashMessageRender from '@/components/FlashMessageRender';
 import useFlash from '@/plugins/useFlash';
-import Button from '@/components/elements/Button';
+import { Button } from '@/components/elements/button';
 import tw from 'twin.macro';
 
 interface Values {
@@ -92,7 +92,7 @@ export default () => {
                             <div css={tw`flex flex-wrap justify-end mt-6`}>
                                 <Button
                                     type={'button'}
-                                    isSecondary
+                                    variant={Button.Variants.Secondary}
                                     css={tw`w-full sm:w-auto sm:mr-2`}
                                     onClick={() => setVisible(false)}
                                 >

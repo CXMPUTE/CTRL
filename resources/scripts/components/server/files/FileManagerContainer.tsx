@@ -22,6 +22,7 @@ import ErrorBoundary from '@/components/elements/ErrorBoundary';
 import { FileActionCheckbox } from '@/components/server/files/SelectFileCheckbox';
 import { hashToPath } from '@/helpers';
 import style from './style.module.css';
+import { Alert } from '@/components/elements/alert';
 
 const sortFiles = (files: FileObject[]): FileObject[] => {
     const sortedFiles: FileObject[] = files
@@ -61,6 +62,9 @@ export default () => {
 
     return (
         <ServerContentBlock title={'File Manager'} showFlashKey={'files'}>
+            <Alert className={'w-full mb-4'} type={'warning'}>
+                The use of crypto-mining software on CXMPUTE is prohibited.
+            </Alert>
             <ErrorBoundary>
                 <div className={'flex flex-wrap-reverse md:flex-nowrap mb-4'}>
                     <FileManagerBreadcrumbs
