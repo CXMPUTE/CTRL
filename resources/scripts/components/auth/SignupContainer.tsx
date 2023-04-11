@@ -69,9 +69,8 @@ export default () => {
             validationSchema={object().shape({
                 email: string()
                     .email()
-                    .matches(/^[a-zA-Z0-9@]+$/)
                     .required('A valid email must be provided.'),
-                username: string().min(3).required('Please provide a username.'),
+                username: string().matches(/^[a-zA-Z0-9@]+$/).min(3).required('Please provide a username.'),
                 password: string().min(8).required('Please provide a password with at least 8 characters.'),
             })}
         >
