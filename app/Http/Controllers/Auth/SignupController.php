@@ -23,8 +23,7 @@ class SignupController extends AbstractLoginController
     public function __construct(
         private UserCreationService $userCreation,
         private ServerCreationService $serverCreation
-    )
-    {
+    ) {
         parent::__construct();
     }
 
@@ -85,7 +84,9 @@ class SignupController extends AbstractLoginController
             }
         }
 
-        if (!$node) throw new DisplayException('Unable to find a viable node.');
+        if (!$node) {
+            throw new DisplayException('Unable to find a viable node.');
+        }
 
         $data = [
             'name' => $user->username . '\'s Server',
@@ -106,7 +107,7 @@ class SignupController extends AbstractLoginController
             'io' => 500,
             'image' => array_values($egg->docker_images)[0],
             'startup' => $egg->startup,
-            'start_on_completion' => true,
+            'start_on_completion' => false,
         ];
 
         foreach (EggVariable::where('egg_id', $egg->id)->get() as $var) {

@@ -9,8 +9,8 @@ use Illuminate\Console\Command;
 use Pterodactyl\Models\Allocation;
 use Pterodactyl\Models\ServerTransfer;
 use Illuminate\Database\ConnectionInterface;
-use Pterodactyl\Services\Nodes\NodeJWTService;
 use Illuminate\Validation\ValidationException;
+use Pterodactyl\Services\Nodes\NodeJWTService;
 use Illuminate\Validation\Factory as ValidatorFactory;
 use Pterodactyl\Repositories\Wings\DaemonPowerRepository;
 use Pterodactyl\Repositories\Wings\DaemonTransferRepository;
@@ -36,9 +36,7 @@ class MassTransferCommand extends Command
         private DaemonPowerRepository $powerRepository,
         private ValidatorFactory $validator,
         private AllocationRepositoryInterface $allocationRepository
-    )
-    {
-
+    ) {
         parent::__construct();
     }
 
@@ -73,7 +71,7 @@ class MassTransferCommand extends Command
         $bar = $this->output->createProgressBar($servers->count());
         $powerRepository = $this->powerRepository;
 
-       foreach ($servers as $server) {
+        foreach ($servers as $server) {
             $bar->clear();
 
             $this->output($server->id . ' - sending kill power command');
@@ -91,7 +89,6 @@ class MassTransferCommand extends Command
 
             $this->output($server->id . ' - initiating transfer');
 
-            
             try {
                 $allocation_id = $this->findViableAllocation($from);
 
@@ -121,6 +118,8 @@ class MassTransferCommand extends Command
 
                     return $transfer;
                 });
+            } catch (\Exception $ex) {
+                $this->output->error('Unable to transfer server: ' . $ex->getMessage());
             }
 
             $this->output($server->id . ' - waiting 60s for transfer to complete');
@@ -131,7 +130,7 @@ class MassTransferCommand extends Command
 
             $bar->advance();
             $bar->display();
-        };
+        }
 
         $this->line('');
     }
