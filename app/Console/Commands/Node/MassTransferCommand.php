@@ -9,9 +9,7 @@ use Illuminate\Console\Command;
 use Pterodactyl\Models\Allocation;
 use Pterodactyl\Models\ServerTransfer;
 use Illuminate\Database\ConnectionInterface;
-use Illuminate\Validation\ValidationException;
 use Pterodactyl\Services\Nodes\NodeJWTService;
-use Illuminate\Validation\Factory as ValidatorFactory;
 use Pterodactyl\Repositories\Wings\DaemonPowerRepository;
 use Pterodactyl\Repositories\Wings\DaemonTransferRepository;
 use Pterodactyl\Contracts\Repository\AllocationRepositoryInterface;
@@ -21,8 +19,8 @@ use Pterodactyl\Exceptions\Service\Deployment\NoViableAllocationException;
 class MassTransferCommand extends Command
 {
     protected $signature = 'p:node:transfer
-                            {--to= : The node you wish to transfer to.}
-                            {--from= : The node you wish to transfer from.}';
+                            {from : The node you wish to transfer from.}
+                            {to : The node you wish to transfer to.}';
 
     protected $description = 'Transfer multiple servers at once.';
 
@@ -34,7 +32,6 @@ class MassTransferCommand extends Command
         private NodeJWTService $nodeJWTService,
         private ConnectionInterface $connection,
         private DaemonPowerRepository $powerRepository,
-        private ValidatorFactory $validator,
         private AllocationRepositoryInterface $allocationRepository
     ) {
         parent::__construct();
@@ -51,22 +48,6 @@ class MassTransferCommand extends Command
         $to = Node::findOrFail($this->argument('to'));
 
         $servers = Server::where('node_id', $from->id)->get();
-
-        $validator = $this->validator->make([
-            'from' => $from,
-            'to' => $to,
-        ], [
-            'from' => 'integer|required',
-            'to' => 'integer|required',
-        ]);
-
-        if ($validator->fails()) {
-            foreach ($validator->getMessageBag()->all() as $message) {
-                $this->output->error($message);
-            }
-
-            throw new ValidationException($validator);
-        }
 
         $bar = $this->output->createProgressBar($servers->count());
         $powerRepository = $this->powerRepository;
