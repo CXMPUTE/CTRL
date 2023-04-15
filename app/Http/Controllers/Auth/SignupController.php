@@ -13,7 +13,7 @@ use Pterodactyl\Exceptions\DisplayException;
 use Pterodactyl\Services\Users\UserCreationService;
 use Pterodactyl\Services\Servers\ServerCreationService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Jexactyl\Exceptions\Service\Deployment\NoViableAllocationException;
+use Pterodactyl\Exceptions\Service\Deployment\NoViableAllocationException;
 
 class SignupController extends AbstractLoginController
 {
