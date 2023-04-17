@@ -1,50 +1,39 @@
-[![Logo Image](https://cdn.pterodactyl.io/logos/new/pterodactyl_pterodactyl.svg)](https://pterodactyl.io)
+[![Tests passing](https://img.shields.io/badge/Tests-passing-brightgreen.svg?style=flat-square)](https://example.com/) [![Join our Discord server!](https://img.shields.io/badge/Join-our%20Discord-7289da.svg?style=flat-square&logo=discord)](https://discord.gg/t75cFJXm)
 
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/pterodactyl/panel/ci.yaml?label=Tests&style=for-the-badge&branch=1.0-develop)
-![Discord](https://img.shields.io/discord/122900397965705216?label=Discord&logo=Discord&logoColor=white&style=for-the-badge)
-![GitHub Releases](https://img.shields.io/github/downloads/pterodactyl/panel/latest/total?style=for-the-badge)
-![GitHub contributors](https://img.shields.io/github/contributors/pterodactyl/panel?style=for-the-badge)
 
-# Pterodactyl Panel
+# CTRL by Cxmpute
 
-Pterodactyl® is a free, open-source game server management panel built with PHP, React, and Go. Designed with security 
-in mind, Pterodactyl runs all game servers in isolated Docker containers while exposing a beautiful and intuitive
-UI to end users.
+CTRL® is an open-source game server management panel built with PHP, React, and Go. It prioritizes security by isolating game servers in Docker containers, and offers a user-friendly web-based interface for hosting services.
 
-Stop settling for less. Make game servers a first class citizen on your platform.
+---
 
-![Image](https://cdn.pterodactyl.io/site-assets/pterodactyl_v1_demo.gif)
+![Image](https://i.imgur.com/2KcLwif.png)
 
-## Documentation
+---
+
+## Get Started
 
 * [Panel Documentation](https://pterodactyl.io/panel/1.0/getting_started.html)
 * [Wings Documentation](https://pterodactyl.io/wings/1.0/installing.html)
 * [Community Guides](https://pterodactyl.io/community/about.html)
-* Or, get additional help [via Discord](https://discord.gg/pterodactyl)
+* Or, get additional help via [our Discord server](https://discord.gg/t75cFJXm).
 
-## Sponsors
+## Supported Games
 
-I would like to extend my sincere thanks to the following sponsors for helping fund Pterodactyl's developement.
-[Interested in becoming a sponsor?](https://github.com/sponsors/matthewpi)
-
-| Company                                                   | About                                                                                                                                                                                                                           |
-|-----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [**WISP**](https://wisp.gg)                               | Extra features.                                                                                                                                                                                                                 |
-| [**Aussie Server Hosts**](https://aussieserverhosts.com/) | No frills Australian Owned and operated High Performance Server hosting for some of the most demanding games serving Australia and New Zealand.                                                                                 |
-| [**BisectHosting**](https://www.bisecthosting.com/)       | BisectHosting provides Minecraft, Valheim and other server hosting services with the highest reliability and lightning fast support since 2012.                                                                                 |
-| [**MineStrator**](https://minestrator.com/)               | Looking for the most highend French hosting company for your minecraft server? More than 24,000 members on our discord trust us. Give us a try!                                                                                 |
-| [**Skynode**](https://www.skynode.pro/)                   | Skynode provides blazing fast game servers along with a top-notch user experience. Whatever our clients are looking for, we're able to provide it!                                                                              |
-| [**VibeGAMES**](https://vibegames.net/)                   | VibeGAMES is a game server provider that specializes in DDOS protection for the games we offer. We have multiple locations in the US, Brazil, France, Germany, Singapore, Australia and South Africa.                           |
-| [**Pterodactyl Market**](https://pterodactylmarket.com/)  | Pterodactyl Market is a one-and-stop shop for Pterodactyl. In our market, you can find Add-ons, Themes, Eggs, and more for Pterodactyl.                                                                                         |
-
-### Supported Games
-
-Pterodactyl supports a wide variety of games by utilizing Docker containers to isolate each instance. This gives
+CTRL supports a wide variety of games by utilizing Docker containers to isolate each instance. This gives
 you the power to run game servers without bloating machines with a host of additional dependencies.
 
-Some of our core supported games include:
+Currently CTRL is in early development and supports:
 
-* Minecraft — including Paper, Sponge, Bungeecord, Waterfall, and more
+* Minecraft — including Paper, Sponge, Bungeecord, Waterfall, and more...
+
+However, as the project develops we may also introduce support for:
+
+* Factorio
+* San Andreas: MP
+* Pocketmine MP
+* Squad
+* Xonotic
 * Rust
 * Terraria
 * Teamspeak
@@ -53,21 +42,11 @@ Some of our core supported games include:
 * Counter Strike: Global Offensive
 * Garry's Mod
 * ARK: Survival Evolved
-
-In addition to our standard nest of supported games, our community is constantly pushing the limits of this software
-and there are plenty more games available provided by the community. Some of these games include:
-
-* Factorio
-* San Andreas: MP
-* Pocketmine MP
-* Squad
-* Xonotic
 * Starmade
 * Discord ATLBot, and most other Node.js/Python discord bots
 * [and many more...](https://github.com/parkervcp/eggs)
 
 ## License
 
-Pterodactyl® Copyright © 2015 - 2022 Dane Everitt and contributors.
-
-Code released under the [MIT License](./LICENSE.md).
+Copyright © 2023 Pterodactyl and contributors.
+This project is licenced under the [MIT License](./LICENSE.md).
