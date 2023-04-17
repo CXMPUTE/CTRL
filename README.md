@@ -48,6 +48,5 @@ However, as the project develops we may also introduce support for:
 
 ## License
 
-CTRL® Copyright © 2023 Jex and contributors.
-
+Copyright © 2023 Pterodactyl and contributors.
 This project is licenced under the [MIT License](./LICENSE.md).
