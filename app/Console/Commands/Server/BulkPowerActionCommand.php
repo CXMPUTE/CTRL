@@ -4,6 +4,7 @@ namespace Pterodactyl\Console\Commands\Server;
 
 use Pterodactyl\Models\Server;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Factory as ValidatorFactory;
@@ -68,15 +69,19 @@ class BulkPowerActionCommand extends Command
         $this->getQueryBuilder($servers, $nodes)->each(function (Server $server) use ($action, $powerRepository, &$bar) {
             $bar->clear();
 
-            try {
-                $powerRepository->setServer($server)->send($action);
-            } catch (DaemonConnectionException $exception) {
-                $this->output->error(trans('command/messages.server.power.action_failed', [
-                    'name' => $server->name,
-                    'id' => $server->id,
-                    'node' => $server->node->name,
-                    'message' => $exception->getMessage(),
-                ]));
+            if (!DB::table('servers')->where('id', $server->id)->first()->pro) {
+                try {
+                    $powerRepository->setServer($server)->send($action);
+                } catch (DaemonConnectionException $exception) {
+                    $this->output->error(trans('command/messages.server.power.action_failed', [
+                        'name' => $server->name,
+                        'id' => $server->id,
+                        'node' => $server->node->name,
+                        'message' => $exception->getMessage(),
+                    ]));
+                }
+            } else {
+                $this->output->info($server->id . ' is a PRO server, skipping');
             }
 
             $bar->advance();
