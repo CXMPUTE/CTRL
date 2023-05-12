@@ -49,16 +49,13 @@ class MassTransferCommand extends Command
 
         $servers = Server::where('node_id', $from->id)->get();
 
-        $bar = $this->output->createProgressBar($servers->count());
-        $powerRepository = $this->powerRepository;
-
         foreach ($servers as $server) {
             $bar->clear();
 
             $this->output($server->id . ' - sending kill power command');
 
             try {
-                $powerRepository->setServer($server)->send('kill');
+                $this->powerRepository->setServer($server)->send('kill');
             } catch (DaemonConnectionException $exception) {
                 $this->output->error(trans('command/messages.server.power.action_failed', [
                     'name' => $server->name,

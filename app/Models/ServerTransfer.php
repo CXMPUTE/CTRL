@@ -49,8 +49,8 @@ class ServerTransfer extends Model
         'new_node' => 'int',
         'old_allocation' => 'int',
         'new_allocation' => 'int',
-        'old_additional_allocations' => 'array',
-        'new_additional_allocations' => 'array',
+        'old_additional_allocations' => 'array|nullable',
+        'new_additional_allocations' => 'array|nullable',
         'successful' => 'bool',
         'archived' => 'bool',
     ];
