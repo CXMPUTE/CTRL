@@ -50,9 +50,7 @@ class MassTransferCommand extends Command
         $servers = Server::where('node_id', $from->id)->get();
 
         foreach ($servers as $server) {
-            $bar->clear();
-
-            $this->output($server->id . ' - sending kill power command');
+            $this->line($server->id . ' - sending kill power command');
 
             try {
                 $this->powerRepository->setServer($server)->send('kill');
@@ -65,7 +63,7 @@ class MassTransferCommand extends Command
                 ]));
             }
 
-            $this->output($server->id . ' - initiating transfer');
+            $this->line($server->id . ' - initiating transfer');
 
             try {
                 $allocation_id = $this->findViableAllocation($from);
@@ -100,14 +98,11 @@ class MassTransferCommand extends Command
                 $this->output->error('Unable to transfer server: ' . $ex->getMessage());
             }
 
-            $this->output($server->id . ' - waiting 60s for transfer to complete');
+            $this->line($server->id . ' - waiting 60s for transfer to complete');
 
             sleep(60);
 
-            $this->output($server->id . ' - complete');
-
-            $bar->advance();
-            $bar->display();
+            $this->line($server->id . ' - complete');
         }
 
         $this->line('');
