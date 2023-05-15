@@ -66,7 +66,7 @@ class MassTransferCommand extends Command
             $this->info($server->id . ' - initiating transfer');
 
             try {
-                $allocation_id = $this->findViableAllocation($from);
+                $allocation_id = $this->findViableAllocation($to);
 
                 $server->validateTransferState();
 
@@ -100,9 +100,9 @@ class MassTransferCommand extends Command
                 $this->output->error('Unable to transfer server: ' . $ex->getMessage());
             }
 
-            $this->info($server->id . ' - waiting 60s for transfer to complete');
+            $this->info($server->id . ' - waiting 120s for transfer to complete');
 
-            sleep(60);
+            sleep(120);
 
             $this->info($server->id . ' - complete');
         }
@@ -111,17 +111,15 @@ class MassTransferCommand extends Command
     }
 
     /**
-     * Gets an allocation for server deployment.
+     * Gets an allocation for server deployment on the new node.
      *
      * @throws NoViableAllocationException
      */
-    protected function findViableAllocation(Node $from): int
+    protected function findViableAllocation(Node $to): int
     {
-        $allocation = Allocation::where('node_id', $from->id)->where('server_id', null)->first();
+        $allocation = Allocation::where('node_id', $to->id)->where('server_id', null)->first();
 
         if (!$allocation) {
-            $this->output->error('No allocations are available for deployment.');
-
             throw new NoViableAllocationException('No allocations are available for deployment.');
         }
 
