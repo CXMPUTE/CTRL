@@ -57,16 +57,7 @@ class ServerTransferController extends Controller
 
         /** @var \Pterodactyl\Models\Server $server */
         $server = $this->connection->transaction(function () use ($server, $transfer) {
-            // This logic has been changed to work with the auto-transfer system
-            // present in CTRL, which does not carry over additional allocations.
-            if ($transfer->old_additional_allocations) {
-                $allocations = array_merge([$transfer->old_allocation], $transfer->old_additional_allocations);
-            } else {
-                $allocations = $transfer->old_allocation;
-            };
-
-            // Remove the old allocations for the server and re-assign the server to the new
-            // primary allocation and node.
+            $allocations = array_merge([$transfer->old_allocation], $transfer->old_additional_allocations);
             Allocation::query()->whereIn('id', $allocations)->update(['server_id' => null]);
             $server->update([
                 'allocation_id' => $transfer->new_allocation,
