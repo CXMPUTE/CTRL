@@ -73,13 +73,13 @@ class MassTransferCommand extends Command
                 $this->connection->transaction(function () use ($server, $to, $allocation_id) {
                     $transfer = new ServerTransfer();
 
-                    $transfer->new_node = $to->id;
                     $transfer->server_id = $server->id;
                     $transfer->old_node = $server->node_id;
+                    $transfer->new_node = $to->id;
                     $transfer->new_allocation = $allocation_id;
                     $transfer->old_allocation = $server->allocation_id;
-                    $transfer->old_allocations = [];
-                    $server->new_allocations = [];
+                    $transfer->old_additional_allocations = [];
+                    $server->new_additional_allocations = [];
 
                     $transfer->save();
 
