@@ -78,7 +78,7 @@ class SignupController extends AbstractLoginController
         $egg = Egg::findOrFail(3);
 
         foreach (Node::inRandomOrder()->get() as $n) {
-            if ($n->isViable(3072, 20480) && $n->public) {
+            if ($n->isViable(2048, 20480) && $n->public) {
                 $node = $n->id;
                 break;
             }
@@ -100,9 +100,9 @@ class SignupController extends AbstractLoginController
             'backup_limit' => 3,
             'database_limit' => 3,
             'environment' => [],
-            'memory' => 3072,
+            'memory' => 2048,
             'disk' => 20480,
-            'cpu' => 200,
+            'cpu' => 150,
             'swap' => 0,
             'io' => 500,
             'image' => array_values($egg->docker_images)[0],
