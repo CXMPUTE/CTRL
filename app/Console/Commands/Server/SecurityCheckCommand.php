@@ -38,7 +38,7 @@ class SecurityCheckCommand extends Command
             $details = $this->serverRepository->setServer($server)->getDetails();
             
             if ($details['state'] === 'starting') {
-                Server::update(['checks' => $server->checks + 1]);
+                $server->update(['checks' => $server->checks + 1]);
 
                 $this->output->writeln($server->id . ' is \'starting\', added to list. Total checks is at ' . $server->checks);
 
@@ -50,7 +50,12 @@ class SecurityCheckCommand extends Command
                         throw new Exception('Unable to delete server: ' . $ex->getMessage());
                     };
                 }
+            } else {
+                $this->output->writeln($server->id . ' has passed checks');
             }
+
+            // Give the daemon a break :(
+            sleep(0.5);
         }
     }
 }
