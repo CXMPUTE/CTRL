@@ -6,6 +6,7 @@ use Exception;
 use Pterodactyl\Models\Server;
 use Illuminate\Console\Command;
 use Pterodactyl\Services\Servers\ServerDeletionService;
+use Pterodactyl\Repositories\Wings\DaemonServerRepository;
 
 class SecurityCheckCommand extends Command
 {
@@ -16,7 +17,7 @@ class SecurityCheckCommand extends Command
     /**
      * SecurityCheckCommand constructor.
      */
-    public function __construct(private ServerDeletionService $deletion)
+    public function __construct(private ServerDeletionService $deletion, private DaemonServerRepository $serverRepository)
     {
         parent::__construct();
     }
@@ -33,7 +34,10 @@ class SecurityCheckCommand extends Command
         $this->output->writeln('Total server list: ' . $servers->count());
 
         foreach ($servers as $server) {
-            if ($server->status === 'starting') {
+
+            $details = $this->serverRepository->setServer($server)->getDetails();
+            
+            if ($details['state'] === 'starting') {
                 Server::update(['checks' => $server->checks + 1]);
 
                 $this->output->writeln($server->id . ' is \'starting\', added to list. Total checks is at ' . $server->checks);
