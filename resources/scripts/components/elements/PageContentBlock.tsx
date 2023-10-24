@@ -3,6 +3,7 @@ import ContentContainer from '@/components/elements/ContentContainer';
 import { CSSTransition } from 'react-transition-group';
 import tw from 'twin.macro';
 import FlashMessageRender from '@/components/FlashMessageRender';
+import { Alert } from '@/components/elements/alert';
 
 export interface PageContentBlockProps {
     title?: string;
@@ -22,6 +23,9 @@ const PageContentBlock: React.FC<PageContentBlockProps> = ({ title, showFlashKey
             <>
                 <ContentContainer css={tw`my-4 sm:my-10`} className={className}>
                     {showFlashKey && <FlashMessageRender byKey={showFlashKey} css={tw`mb-4`} />}
+                    <Alert className={'w-full mb-4'} type={'warning'}>
+                        From 30 November 2023, all free-tier servers will be deactivated. Please follow the link for more information: https://discord.gg/DdKF6UBDkM
+                    </Alert>
                     {children}
                 </ContentContainer>
                 <ContentContainer css={tw`mb-4`}>
