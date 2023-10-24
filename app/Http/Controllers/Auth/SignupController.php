@@ -33,8 +33,12 @@ class SignupController extends AbstractLoginController
      * @throws DisplayException
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function signup(Request $request): JsonResponse
+    public function signup()/*: JsonResponse */
     {
+
+        throw new DisplayException('We are no longer accepting new free-tier users. Please follow this link for more information: https://discord.gg/DdKF6UBDkM');
+
+        /*
         try {
             $user = $this->userCreation->handle([
                 'username' => $request->input('username'),
@@ -64,6 +68,7 @@ class SignupController extends AbstractLoginController
                 'user' => $user->toVueObject(),
             ],
         ]);
+        */
     }
 
     /**
